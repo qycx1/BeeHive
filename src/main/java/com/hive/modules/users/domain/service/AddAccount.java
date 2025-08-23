@@ -1,10 +1,7 @@
 package com.hive.modules.users.domain.service;
 
 import com.hive.modules.users.domain.factory.UserFactory;
-import com.hive.modules.users.domain.model.Address;
-import com.hive.modules.users.domain.model.Email;
-import com.hive.modules.users.domain.model.PhoneNumber;
-import com.hive.modules.users.domain.model.User;
+import com.hive.modules.users.domain.model.*;
 import com.hive.modules.users.domain.repository.UserRepository;
 import com.hive.modules.users.domain.result.AddAccountResult;
 import com.hive.shared.result.Result;
@@ -35,12 +32,11 @@ public final class AddAccount {
             return Result.fail(emailResult.errorMessage());
         }
 
-        if (birthday.isAfter(LocalDate.now())) {
-            return Result.fail(AddAccountResult.BIRTHDAY_IN_FUTURE);
-        }
+        Result<Birthday, AddAccountResult> birthdayResult = Birthday.create(birthday);
 
-        if (birthday.isBefore(LocalDate.now().minusYears(150))) {
-            return Result.fail(AddAccountResult.AGE_TOO_HIGH);
+        if(birthdayResult.errorMessage().equals(AddAccountResult.AGE_TOO_HIGH)
+        || birthdayResult.errorMessage().equals(AddAccountResult.BIRTHDAY_IN_FUTURE) ) {
+            return Result.fail(birthdayResult.errorMessage());
         }
 
         User user = userFactory.create(
@@ -48,7 +44,7 @@ public final class AddAccount {
                 emailResult.data().getValue(),
                 addresses,
                 phoneResult.data().getValue(),
-                birthday
+                birthdayResult.data().getValue()
         );
 
         userRepository.save(user);
