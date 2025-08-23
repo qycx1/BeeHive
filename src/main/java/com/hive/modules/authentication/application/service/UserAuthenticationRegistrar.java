@@ -1,6 +1,7 @@
 package com.hive.modules.authentication.application.service;
 
 import com.hive.modules.authentication.domain.model.Auth;
+import com.hive.modules.authentication.domain.result.AddAuthResult;
 import com.hive.modules.authentication.domain.service.AddAuthentication;
 import com.hive.modules.authentication.application.request.RegisterRequest;
 import com.hive.modules.authentication.application.response.RegisterResponse;
@@ -26,10 +27,10 @@ public final class UserAuthenticationRegistrar {
             return RegisterResponse.fail("Invalid password input.");
         }
 
-        Result<Auth> result = addAuthentication.add(request.userId(), request.username(), request.password());
+        Result<Auth, AddAuthResult> result = addAuthentication.add(request.userId(), request.username(), request.password());
 
         if (!result.success()) {
-            return RegisterResponse.fail(result.errorMessage());
+            return RegisterResponse.fail(result.errorMessage().get());
         }
 
         return RegisterResponse.ok(  "Successfully added authentication for " + request.userId());
