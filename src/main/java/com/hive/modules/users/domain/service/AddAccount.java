@@ -34,8 +34,7 @@ public final class AddAccount {
 
         Result<Birthday, AddAccountResult> birthdayResult = Birthday.create(birthday);
 
-        if(birthdayResult.errorMessage().equals(AddAccountResult.AGE_TOO_HIGH)
-        || birthdayResult.errorMessage().equals(AddAccountResult.BIRTHDAY_IN_FUTURE) ) {
+        if(!birthdayResult.success()) {
             return Result.fail(birthdayResult.errorMessage());
         }
 
