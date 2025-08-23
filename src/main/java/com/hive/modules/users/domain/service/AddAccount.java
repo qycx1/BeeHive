@@ -6,6 +6,7 @@ import com.hive.modules.users.domain.model.Email;
 import com.hive.modules.users.domain.model.PhoneNumber;
 import com.hive.modules.users.domain.model.User;
 import com.hive.modules.users.domain.repository.UserRepository;
+import com.hive.modules.users.domain.result.AddAccountResult;
 import com.hive.shared.result.Result;
 
 import java.time.LocalDate;
@@ -21,25 +22,25 @@ public final class AddAccount {
         this.userFactory = userFactory;
     }
 
-    public Result<User> add(String firstName, String lastName, String email,
-                            Set<Address> addresses, String phoneNumber, LocalDate birthday) {
+    public Result<User, AddAccountResult> add(String firstName, String lastName, String email,
+                                              Set<Address> addresses, String phoneNumber, LocalDate birthday) {
 
-        Result<PhoneNumber> phoneResult = PhoneNumber.create(phoneNumber);
+        Result<PhoneNumber, AddAccountResult> phoneResult = PhoneNumber.create(phoneNumber);
         if (!phoneResult.success()) {
             return Result.fail(phoneResult.errorMessage());
         }
 
-        var emailResult = Email.create(email);
+        Result<Email, AddAccountResult> emailResult = Email.create(email);
         if (!emailResult.success()) {
             return Result.fail(emailResult.errorMessage());
         }
 
         if (birthday.isAfter(LocalDate.now())) {
-            return Result.fail("Birthday cannot be in the future");
+            return Result.fail(AddAccountResult.BIRTHDAY_IN_FUTURE);
         }
 
         if (birthday.isBefore(LocalDate.now().minusYears(150))) {
-            return Result.fail("Birthday cannot be more than 150 years ago.");
+            return Result.fail(AddAccountResult.AGE_TOO_HIGH);
         }
 
         User user = userFactory.create(
