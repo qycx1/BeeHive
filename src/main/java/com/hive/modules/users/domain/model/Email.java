@@ -1,5 +1,6 @@
 package com.hive.modules.users.domain.model;
 
+import com.hive.modules.users.domain.result.AddAccountResult;
 import com.hive.shared.result.Result;
 
 public final class Email {
@@ -9,10 +10,12 @@ public final class Email {
         this.value = value;
     }
 
-    public static Result<Email> create(String value) {
+    public static Result<Email, AddAccountResult> create(String value) {
         if (value == null || !value.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-            return Result.fail("Invalid email format");
+            return Result.fail(AddAccountResult.INVALID_EMAIL);
         }
+
+
         return Result.ok(new Email(value));
     }
 
