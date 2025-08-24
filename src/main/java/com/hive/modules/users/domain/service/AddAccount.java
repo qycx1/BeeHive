@@ -2,7 +2,6 @@ package com.hive.modules.users.domain.service;
 
 import com.hive.modules.users.domain.factory.UserFactory;
 import com.hive.modules.users.domain.model.*;
-import com.hive.modules.users.domain.repository.UserRepository;
 import com.hive.modules.users.domain.result.AddAccountResult;
 import com.hive.shared.result.Result;
 
@@ -11,11 +10,9 @@ import java.util.Set;
 
 public final class AddAccount {
 
-    private final UserRepository userRepository;
     private final UserFactory userFactory;
 
-    public AddAccount(UserRepository userRepository, UserFactory userFactory) {
-        this.userRepository = userRepository;
+    public AddAccount(UserFactory userFactory) {
         this.userFactory = userFactory;
     }
 
@@ -46,7 +43,6 @@ public final class AddAccount {
                 birthdayResult.data().getValue()
         );
 
-        userRepository.save(user);
         return Result.ok(user);
     }
 
