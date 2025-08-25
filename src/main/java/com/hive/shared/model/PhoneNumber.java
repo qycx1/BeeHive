@@ -1,4 +1,4 @@
-package com.hive.modules.users.domain.model;
+package com.hive.shared.model;
 
 import com.hive.modules.users.domain.result.AddAccountResult;
 import com.hive.shared.result.Result;
@@ -10,9 +10,9 @@ public final class PhoneNumber {
         this.value = value;
     }
 
-    public static Result<PhoneNumber, AddAccountResult> create(String raw) {
+    public static <P> Result<PhoneNumber, P> create(String raw, P error) {
         if (raw == null || !raw.matches("\\d+")) {
-            return Result.fail(AddAccountResult.INVALID_PHONE);
+            return Result.fail(error);
         }
         return Result.ok(new PhoneNumber(raw));
     }
