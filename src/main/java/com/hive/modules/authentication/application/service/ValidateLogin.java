@@ -1,4 +1,4 @@
-package com.hive.modules.authentication.domain.service;
+package com.hive.modules.authentication.application.service;
 
 import com.hive.modules.authentication.domain.model.Auth;
 import com.hive.modules.authentication.domain.repository.AuthRepository;

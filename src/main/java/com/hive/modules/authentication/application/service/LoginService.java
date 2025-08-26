@@ -4,7 +4,6 @@ import com.hive.modules.authentication.application.request.LoginRequest;
 import com.hive.modules.authentication.application.response.LoginResponse;
 import com.hive.modules.authentication.domain.result.LoginResult;
 import com.hive.modules.authentication.domain.result.UserProfileResult;
-import com.hive.modules.authentication.domain.service.ValidateLogin;
 import com.hive.modules.users.domain.repository.UserProfileRepository;
 
 public final class LoginService {
