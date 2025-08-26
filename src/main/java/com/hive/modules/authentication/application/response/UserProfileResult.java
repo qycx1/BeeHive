@@ -1,4 +1,4 @@
-package com.hive.modules.authentication.domain.result;
+package com.hive.modules.authentication.application.response;
 
 import java.time.LocalDate;
 import java.util.Set;

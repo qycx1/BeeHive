@@ -1,6 +1,6 @@
 package com.hive.modules.users.domain.repository;
 
-import com.hive.modules.authentication.domain.result.UserProfileResult;
+import com.hive.modules.authentication.application.response.UserProfileResult;
 
 import java.util.Optional;
 
