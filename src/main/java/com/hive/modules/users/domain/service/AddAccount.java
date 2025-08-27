@@ -3,6 +3,8 @@ package com.hive.modules.users.domain.service;
 import com.hive.modules.users.domain.factory.UserFactory;
 import com.hive.modules.users.domain.model.*;
 import com.hive.modules.users.domain.result.AddAccountResult;
+import com.hive.shared.model.Email;
+import com.hive.shared.model.PhoneNumber;
 import com.hive.shared.result.Result;
 
 import java.time.LocalDate;
@@ -19,12 +21,12 @@ public final class AddAccount {
     public Result<User, AddAccountResult> add(String firstName, String lastName, String email,
                                               Set<Address> addresses, String phoneNumber, LocalDate birthday) {
 
-        Result<PhoneNumber, AddAccountResult> phoneResult = PhoneNumber.create(phoneNumber);
+        Result<PhoneNumber, AddAccountResult> phoneResult = PhoneNumber.create(phoneNumber, AddAccountResult.INVALID_PHONE);
         if (!phoneResult.success()) {
             return Result.fail(phoneResult.errorMessage());
         }
 
-        Result<Email, AddAccountResult> emailResult = Email.create(email);
+        Result<Email, AddAccountResult> emailResult = Email.create(email, AddAccountResult.INVALID_EMAIL);
         if (!emailResult.success()) {
             return Result.fail(emailResult.errorMessage());
         }
