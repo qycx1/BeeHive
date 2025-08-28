@@ -9,6 +9,7 @@ public interface AuthRepository {
     Optional<Auth> findById(String authId);
     Optional<Auth> findByUsername(String username);
     Optional<Auth> findByEmail(String email);
+    void update(Auth auth);
     void save(Auth auth);
     void delete(Auth auth);
 }
