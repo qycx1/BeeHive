@@ -1,5 +1,8 @@
 package com.hive.modules.authentication.domain.model;
 
+import com.hive.modules.authentication.domain.exception.PasswordMismatchException;
+import com.hive.modules.authentication.util.BCryptHasher;
+
 import java.time.LocalDateTime;
 
 public final class Auth {
@@ -22,6 +25,10 @@ public final class Auth {
         this.status = status;
         this.role = role;
         this.createdAt = createdAt;
+    }
+
+    public String getAuthId() {
+        return authId;
     }
 
     public String getUsername() {
@@ -56,13 +63,17 @@ public final class Auth {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-
+    public void changePassword(String oldPassword, String newPassword) {
+        if(!BCryptHasher.verify(oldPassword, password)){
+            throw new PasswordMismatchException("Old password does not match.");
+        }
+        if(newPassword.length() < 8){
+            throw new IllegalArgumentException("Password must be at least 8 characters.");
+        }
+        this.password = BCryptHasher.hash(newPassword);
+    }
 }
