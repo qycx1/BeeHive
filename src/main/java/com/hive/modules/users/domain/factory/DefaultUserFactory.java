@@ -1,6 +1,7 @@
 package com.hive.modules.users.domain.factory;
 
 import com.hive.modules.users.domain.model.Address;
+import com.hive.modules.users.domain.model.Roles;
 import com.hive.modules.users.domain.model.User;
 import com.hive.shared.id.IDGenerator;
 
@@ -17,6 +18,6 @@ public class DefaultUserFactory implements UserFactory{
 
     @Override
     public User create(String firstName, String lastName, String email, Set<Address> addresses, String phoneNumber, LocalDate birthday) {
-        return new User(idGenerator.generate(), firstName ,lastName, email, addresses, phoneNumber, birthday);
+        return new User(idGenerator.generate(), firstName ,lastName, email, addresses, phoneNumber, birthday, Roles.BUYER);
     }
 }
