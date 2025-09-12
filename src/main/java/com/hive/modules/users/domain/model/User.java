@@ -13,10 +13,10 @@ public class User {
     private Set<Address> addresses;
     private String phoneNumber;
     private LocalDate birthday;
-
+    private Roles role;
     private LocalDateTime lastLogin;
 
-    public User(String userId, String firstName, String lastName, String email, Set<Address> addresses, String phoneNumber, LocalDate birthday) {
+    public User(String userId, String firstName, String lastName, String email, Set<Address> addresses, String phoneNumber, LocalDate birthday,  Roles role) {
     this.userId = userId;
     this.firstName =firstName;
     this.lastName = lastName;
@@ -24,6 +24,7 @@ public class User {
     this.addresses = addresses;
     this.phoneNumber = phoneNumber;
     this.birthday = birthday;
+    this.role = role;
     }
 
     public Set<Address> getAddresses() {
@@ -86,6 +87,11 @@ public class User {
         return userId;
     }
 
+    public Roles getRole() {
+        return role;
+    }
 
-
+    public void setRole(Roles role) {
+        this.role = role;
+    }
 }
