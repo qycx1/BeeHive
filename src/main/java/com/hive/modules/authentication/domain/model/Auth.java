@@ -13,17 +13,15 @@ public final class Auth {
     private String password;
 
     private Status status;
-    private Roles role;
 
     private final LocalDateTime createdAt;
 
-    public Auth(String authId,String userId, String username, String password, Status status, Roles role, LocalDateTime createdAt) {
+    public Auth(String authId,String userId, String username, String password, Status status, LocalDateTime createdAt) {
         this.authId = authId;
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.status = status;
-        this.role = role;
         this.createdAt = createdAt;
     }
 
@@ -49,14 +47,6 @@ public final class Auth {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public Roles getRole() {
-        return role;
-    }
-
-    public void setRole(Roles role) {
-        this.role = role;
     }
 
     public String getPassword() {
