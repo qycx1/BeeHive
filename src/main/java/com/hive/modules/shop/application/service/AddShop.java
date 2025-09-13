@@ -41,8 +41,15 @@ public final class AddShop {
         }
 
         ShopRuleResult ruleResult = shopRule.check(userId, name);
+
         if (ruleResult != ShopRuleResult.SUCCESS) {
-            return AddShopResponse.fail(AddShopError.SHOP_NAME_ALREADY_EXISTS);
+            AddShopError error = switch (ruleResult) {
+                case OWNER_HAS_SHOP -> AddShopError.USER_ALREADY_HAS_SHOP;
+                case SHOP_NAME_EXIST -> AddShopError.SHOP_NAME_ALREADY_EXISTS;
+                default -> AddShopError.UNKNOWN_ERROR;
+            };
+
+            return AddShopResponse.fail(error);
         }
 
         Shop shop = director.buildDefaultShop(userId, name, description);
