@@ -6,8 +6,8 @@ import com.hive.modules.shop.domain.model.ShopStatistic;
 import java.util.Optional;
 
 public interface ShopRepository {
-    Optional<Shop> findByUserId(String shopId);
+    Optional<Shop> findByUserId(String userId);
     boolean shopExistsByName(String name);
-    boolean shopExistsById(String id);
+    boolean shopExistsById(String userId);
     void save(Shop shop, ShopStatistic statistics);
 }
